@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\dev\\sp-app\\spring-app\\spring-app.csproj": {}
+    "C:\\Users\\ray12\\spring開発用\\sp-app\\spring-app\\spring-app.csproj": {}
   },
   "projects": {
-    "C:\\dev\\sp-app\\spring-app\\spring-app.csproj": {
+    "C:\\Users\\ray12\\spring開発用\\sp-app\\spring-app\\spring-app.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\dev\\sp-app\\spring-app\\spring-app.csproj",
+        "projectUniqueName": "C:\\Users\\ray12\\spring開発用\\sp-app\\spring-app\\spring-app.csproj",
         "projectName": "spring-app",
-        "projectPath": "C:\\dev\\sp-app\\spring-app\\spring-app.csproj",
-        "packagesPath": "C:\\Users\\s145c\\.nuget\\packages\\",
-        "outputPath": "C:\\dev\\sp-app\\spring-app\\obj\\",
+        "projectPath": "C:\\Users\\ray12\\spring開発用\\sp-app\\spring-app\\spring-app.csproj",
+        "packagesPath": "C:\\Users\\ray12\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\ray12\\spring開発用\\sp-app\\spring-app\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\s145c\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ray12\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,6 +43,10 @@
             "Microsoft.AspNetCore.SpaServices.Extensions": {
               "target": "Package",
               "version": "[3.1.11, )"
+            },
+            "MySql.Data": {
+              "target": "Package",
+              "version": "[8.0.24, )"
             }
           },
           "imports": [
