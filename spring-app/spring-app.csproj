@@ -17,8 +17,12 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="Model\新しいフォルダー\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="Model\新しいフォルダー\**" />
+    <EmbeddedResource Remove="Model\新しいフォルダー\**" />
     <None Remove="$(SpaRoot)**" />
+    <None Remove="Model\新しいフォルダー\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 

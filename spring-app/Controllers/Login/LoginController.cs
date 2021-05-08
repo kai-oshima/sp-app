@@ -24,9 +24,9 @@ namespace spring_app.Controllers.Login
         }
 
         [HttpGet("{name}/{pass}", Name = "Login")]
-        public String ajaxLogin(String name, String pass)
+        public String AjaxLogin(String name, String pass)
         {
-            if(isCorrectUser(name, pass))
+            if (isCorrectUser(name, pass))
             {
                 return "200 OK";
             }

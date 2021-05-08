@@ -1,30 +1,61 @@
 import { useEffect, useState } from "react";
+import { RouteComponentProps, withRouter } from "react-router";
+import * as Common from "../../Common/Function/Function";
+import { CommonTextBox } from "../../Parts/CommonTextBox/CommonTextBox";
+import { PassTextBox } from "../../Parts/PassTextBox/PassTextBox";
+import { SubmitButton } from "../../Parts/SubmitButton/SubmitButton";
+import { TextBox } from "../../Parts/TextBox/TextBox";
 
-function Login(){
-const[userName, setUserName] = useState("");
-const[password, setPassword] = useState("");
+interface Props extends RouteComponentProps {
+    children ? : any;
+}
+
+export const Layout = (props : Props) => {
+    //state
+    const[userName, setUserName] = useState("");
+    const[password, setPassword] = useState("");
+    const[hiddenPass, setHiddenPass] = useState("");
+    //ログイン済
+    const[isLoggedIn, setIsLoggedIn] = useState(false);
+    const[message, setMessage] = useState("");
 
     useEffect(() => {
-
-    });
-
-    async function tryLogin(){
-        const url = "api/Login/" + userName + "/" + password;
-        const response = await fetch(url);
-        console.log(response);
-    }
+        if(Boolean(Common.getCookie('login-status'))){
+            
+        }
+    }, []);
 
     return (
-        <div className="main">
+        <div>
             <section>
-                <label>ID</label>
-                <input type="text" onChange={(e) => {setUserName(e.target.value)}}></input>
-                <label>E-mail</label>
-                <input type="text" id="pass" onChange={(e) => {setPassword(e.target.value)}}></input>
-                <button onClick={tryLogin}>LOGIN</button>
+                <CommonTextBox
+                    label="ユーザーID"
+                    value={userName}
+                    onChange={setUserName}
+                />
+                <PassTextBox
+                    label="パスワード"
+                    value={password}
+                    callBack={setPassword}
+                    onChange={setPass}
+                />
+                <SubmitButton
+                    value="ログイン"
+                    onClick={tryLogin}
+                />
             </section>
         </div>
     );
+
+    async function tryLogin(event : any){
+        const a = "api/Login/" + userName + "/" + password;
+        const response = await fetch(a);
+        console.log(response);
+    }
+
+    function setPass(val : string, callBack : Function) {
+        callBack(val);
+    }
 };
 
-export default Login;
+export default withRouter(Layout);
