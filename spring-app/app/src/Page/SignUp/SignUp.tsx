@@ -60,10 +60,9 @@ export const SignUp = () => {
   }
 
   function registAccount(event : any) {
-    debugger;
     const url = 'api/RegistAccount';
-    const jsonData = JSON.stringify({firstName, lastName, userId, password});
-    const response = Common.httpPost(url, {"test" : "test"});
+    const jsonData = {firstName, lastName, userId, password};
+    const response = Common.httpPost(url, jsonData);
     console.log(response);
   }
 }

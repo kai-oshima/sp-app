@@ -1,0 +1,21 @@
+.header {
+  height: 200px;
+  background-color: #569e56;
+  display: flex;
+
+  &-title {
+    width: 50%;
+    margin: 0;
+    text-align: left;
+  }
+
+  &-nav {
+    width: 50%;
+
+    &-ul{
+      display: flex;
+      list-style: none;
+      float: right;
+    }
+  }
+}

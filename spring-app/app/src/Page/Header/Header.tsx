@@ -1,12 +1,21 @@
-import { useEffect, useState} from "react";
-import {Link} from "react-router-dom";
+import * as React from "react";
+import {Link, RouteComponentProps} from "react-router-dom";
+import "./Header.scss"
 
-function Header(){
-    return (
+const Header = () => {
+    interface Props extends RouteComponentProps {
+        children? : any;
+    }
+    
+    React.useEffect(() => {
+
+    }, []);
+
+    return(
         <div className="header">
-            <h1>Spring</h1>
-            <nav>
-                <ul>
+            <h1 className="header-title">Spring</h1>
+            <nav className="header-nav">
+                <ul className="header-nav-ul">
                     <li>
                         <Link to="/">HOME</Link>
                     </li>
@@ -20,6 +29,6 @@ function Header(){
             </nav>
         </div>
     );
-};
+}
 
 export default Header;
