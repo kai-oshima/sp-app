@@ -19,7 +19,7 @@ export function getCookie(name : string) {
 }
 
 /* POST通信 */
-export async function httpPost(url : string, jsonData : object) {
+export async function httpPost(url : string, jsonData : object, callBack : Function) {
   const options = {
     method: 'POST',
     headers: {
@@ -33,6 +33,7 @@ export async function httpPost(url : string, jsonData : object) {
   const result =
   await fetch(url, options)
   .then(response => {
+    //通信成功
     if(response.ok){
       console.log(response);
       return response.json();
@@ -45,7 +46,8 @@ export async function httpPost(url : string, jsonData : object) {
     console.log(error);
     return null;
   })
-  return result;
+  //実行したい処理
+  callBack(result);
 }
 
 /* GET通信 */

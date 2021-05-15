@@ -1,23 +1,26 @@
 import React from 'react';
 import Layout from './Page/Layout/Layout';
 import './App.css';
-import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
+import {Router, Switch, Route, Redirect} from 'react-router-dom'
+import createBrowserHistory from 'history/createBrowserHistory';
 import Home from './Page/Home/Home';
 import Main from './Page/Main/Main';
 import Login from './Page/Login/Login';
 import SignUp from './Page/SignUp/SignUp';
 import * as Common from './Common/Function/Function';
+import * as Auth from './Common/Authenticate/Authenticate';
 
 export const App = () => {
+  const history = createBrowserHistory();
   const[auth, setAuth] = React.useState(false);
 
   React.useEffect(() => {
-    Common.setCookie("login-status", String(auth));
+    setAuth(Auth.checkAuth);
   }, []);
 
   return(
     <div className="App">
-      <BrowserRouter>
+      <Router history={history}>
         <Layout>
           <Switch>
             <Route exact path="/" component={Home}/>
@@ -31,7 +34,7 @@ export const App = () => {
             }
           </Switch>
         </Layout>
-      </BrowserRouter>
+      </Router>
     </div>
   );
 }

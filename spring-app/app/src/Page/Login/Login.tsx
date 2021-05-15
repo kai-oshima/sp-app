@@ -4,7 +4,6 @@ import * as Common from "../../Common/Function/Function";
 import { CommonTextBox } from "../../Parts/CommonTextBox/CommonTextBox";
 import { PassTextBox } from "../../Parts/PassTextBox/PassTextBox";
 import { SubmitButton } from "../../Parts/SubmitButton/SubmitButton";
-import { TextBox } from "../../Parts/TextBox/TextBox";
 
 interface Props extends RouteComponentProps {
     children ? : any;
@@ -20,9 +19,7 @@ export const Layout = (props : Props) => {
     const[message, setMessage] = useState("");
 
     useEffect(() => {
-        if(Boolean(Common.getCookie('login-status'))){
-            
-        }
+
     }, []);
 
     return (
@@ -51,6 +48,9 @@ export const Layout = (props : Props) => {
         const a = "api/Login/" + userName + "/" + password;
         const response = await fetch(a);
         console.log(response);
+        Common.setCookie('login-status', '1');
+        props.history.push('/main');
+        
     }
 
     function setPass(val : string, callBack : Function) {

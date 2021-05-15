@@ -12,10 +12,11 @@ namespace spring_app.Controllers.RegistAccount
     public class RegistAccountController : ControllerBase
     {
         [HttpPost]
-        public String AjaxRegistAccount()
+        public Dictionary<String, String> AjaxRegistAccount()
         {
-            string test = "test";
-            return test;
+            var test = new Dictionary<String, String>();
+            test.Add("test", "test");
+            return　test;
         }
 
     }

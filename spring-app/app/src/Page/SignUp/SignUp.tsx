@@ -4,7 +4,6 @@ import * as Common from '../../Common/Function/Function';
 import { CommonTextBox } from '../../Parts/CommonTextBox/CommonTextBox';
 import { PassTextBox } from '../../Parts/PassTextBox/PassTextBox';
 import { SubmitButton } from '../../Parts/SubmitButton/SubmitButton';
-import { TextBox } from '../../Parts/TextBox/TextBox';
 
 export const SignUp = () => {
   const[firstName, setFirstName] = React.useState("");
@@ -15,7 +14,6 @@ export const SignUp = () => {
   const[message, setMessage] = React.useState("");
 
   React.useEffect(() => {
-
   }, []);
 
   return(
@@ -51,18 +49,18 @@ export const SignUp = () => {
 
   function setPass(val : string, setPass : Function) {
     setPass(val);
-
-/*     if(password == rePassword){
-      setMessage("");
-    }else{
-      setMessage("パスワードが一致していません");
-    } */
   }
 
+  //登録処理
   function registAccount(event : any) {
     const url = 'api/RegistAccount';
     const jsonData = {firstName, lastName, userId, password};
-    const response = Common.httpPost(url, jsonData);
+    //登録実行後にページ呼び出しを行う
+    Common.httpPost(url, jsonData, callPage);
+  }
+
+  //ページ呼び出し
+  function callPage(response : string){
     console.log(response);
   }
 }

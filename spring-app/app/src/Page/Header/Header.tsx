@@ -1,5 +1,6 @@
 import * as React from "react";
 import {Link, RouteComponentProps} from "react-router-dom";
+import { LinkMenu } from "../../Parts/LinkMenu/LinkMenu";
 import "./Header.scss"
 
 const Header = () => {
@@ -13,18 +14,17 @@ const Header = () => {
 
     return(
         <div className="header">
-            <h1 className="header-title">Spring</h1>
+            <section className="header-title">
+                <h1>Spring</h1>
+                <span className="circle"></span>
+                <span className="circle"></span>
+                <span className="circle"></span>
+            </section>
             <nav className="header-nav">
                 <ul className="header-nav-ul">
-                    <li>
-                        <Link to="/">HOME</Link>
-                    </li>
-                    <li>
-                        <Link to="/login">LOGIN</Link>
-                    </li>
-                    <li>
-                        <Link to="/signup">SIGN UP</Link>
-                    </li>
+                    <LinkMenu path='/' value='HOME'/>
+                    <LinkMenu path='login' value='LOGIN'/>
+                    <LinkMenu path='/signup' value='SIGN UP'/>
                 </ul>
             </nav>
         </div>
