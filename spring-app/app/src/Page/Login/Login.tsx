@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { RouteComponentProps, withRouter } from "react-router";
+import { Redirect, RouteComponentProps, withRouter } from "react-router";
 import * as Common from "../../Common/Function/Function";
 import { CommonTextBox } from "../../Parts/CommonTextBox/CommonTextBox";
 import { PassTextBox } from "../../Parts/PassTextBox/PassTextBox";
@@ -9,7 +9,7 @@ interface Props extends RouteComponentProps {
     children ? : any;
 }
 
-export const Layout = (props : Props) => {
+export const Login = (props : Props) => {
     //state
     const[userName, setUserName] = useState("");
     const[password, setPassword] = useState("");
@@ -49,7 +49,7 @@ export const Layout = (props : Props) => {
         const response = await fetch(a);
         console.log(response);
         Common.setCookie('login-status', '1');
-        props.history.push('/main');
+        props.history.push({pathname: "/main"});
         
     }
 
@@ -58,4 +58,4 @@ export const Layout = (props : Props) => {
     }
 };
 
-export default withRouter(Layout);
+export default withRouter(Login);

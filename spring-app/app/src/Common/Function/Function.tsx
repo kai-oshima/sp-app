@@ -1,21 +1,23 @@
+import { Redirect } from "react-router";
+
 /* Cookie保存 */
 export function setCookie(name : string, data : string) {
   let cookie = "app-" + name + "=" + data;
   document.cookie = cookie;
 }
 
-/* Cookie取得 */
+/* Cookieの値取得 */
 export function getCookie(name : string) {
-  let targetCookie;
+  let targetVal = '';
   let cookiesArray = document.cookie.split(';');
-  
-  targetCookie = cookiesArray.find(cookie => {
+
+  cookiesArray.forEach(cookie => {
     let array = cookie.split('=');
-    if(('app-' + array[0]) == name){
-      return array[1];
+    if((array[0]) === 'app-' + name){
+      targetVal = array[1];
     }
   });
-  return targetCookie ? targetCookie : "";
+  return targetVal !== '' ? targetVal : "";
 }
 
 /* POST通信 */
@@ -51,3 +53,13 @@ export async function httpPost(url : string, jsonData : object, callBack : Funct
 }
 
 /* GET通信 */
+
+/* ログインチェック */
+export function isLoggedIn () {
+  return getCookie('login-status') === '1' ? true : false;
+}
+
+/* ログアウト処理 */
+export function  logout() {
+  setCookie('login-status', '0');
+}

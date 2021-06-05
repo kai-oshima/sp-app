@@ -1,42 +1,48 @@
 import React from 'react';
-import Layout from './Page/Layout/Layout';
 import './App.css';
-import {Router, Switch, Route, Redirect} from 'react-router-dom'
-import createBrowserHistory from 'history/createBrowserHistory';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 import Home from './Page/Home/Home';
 import Main from './Page/Main/Main';
 import Login from './Page/Login/Login';
 import SignUp from './Page/SignUp/SignUp';
 import * as Common from './Common/Function/Function';
-import * as Auth from './Common/Authenticate/Authenticate';
+import Contents from './Page/Contents/Contents';
+import Logout from './Page/Logout/Logout';
 
 export const App = () => {
-  const history = createBrowserHistory();
-  const[auth, setAuth] = React.useState(false);
-
-  React.useEffect(() => {
-    setAuth(Auth.checkAuth);
-  }, []);
-
   return(
     <div className="App">
-      <Router history={history}>
-        <Layout>
-          <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route exact path='/login' component={Login}/>
-            <Route exact path='/signup' component={SignUp}/>
-            <Redirect from='/main' to='/' />
-            {auth ?
-              <Route exact path="/main" component={Main}/>
-              :
-              ''
-            }
-          </Switch>
-        </Layout>
-      </Router>
+        <BrowserRouter>
+          <Contents>
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <UnAuthRoute exact path="/login" component={Login} />
+              <UnAuthRoute exact path="/signup" component={SignUp} />
+              <AuthRoute exact path="/main" component={Main} />
+              <LogoutRoute exact path="/logout" component={Logout} />
+            </Switch>
+          </Contents>
+        </BrowserRouter>
     </div>
   );
+}
+
+//認証後に遷移可能なページ
+const AuthRoute = (props : any) => {
+  return Common.isLoggedIn() ? <Route {...props} /> : <Redirect to={'/'} />
+}
+
+//認証前のみ遷移可能なページ
+const UnAuthRoute = (props: any) => {
+  return Common.isLoggedIn() ? <Redirect to={'/'} /> : <Route {...props} />
+}
+
+//ログアウト
+const LogoutRoute = (props: any) => {
+  if(Common.isLoggedIn()){
+    Common.setCookie("login-status", "0");
+  }
+  return <Redirect to={'/'} />
 }
 
 export default App;

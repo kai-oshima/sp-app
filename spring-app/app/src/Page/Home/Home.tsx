@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { withRouter } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
+import Header from '../Header/Header';
+
+interface Props extends RouteComponentProps {
+  children? : any;
+}
 
 const Home = () => {
   return (

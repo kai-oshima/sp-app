@@ -9,7 +9,7 @@ interface Props {
 export const LinkMenu = (props : Props) => {
   return (
     <li className='link-menu'>
-      <Link to={props.path}>{props.value}</Link>
+      <Link to={props.path} >{props.value}</Link>
     </li>
   )
 }

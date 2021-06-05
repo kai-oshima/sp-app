@@ -1,6 +1,6 @@
 interface Props {
   value : string,
-  onClick : (event : any) => void,
+  onClick: (event : any) => void,
 }
 
 export const SubmitButton = (props : Props) => {
@@ -11,4 +11,8 @@ export const SubmitButton = (props : Props) => {
       {props.value}
     </button>
   );
+}
+
+SubmitButton.defaultProps = {
+  onClick: ()=>{}
 }

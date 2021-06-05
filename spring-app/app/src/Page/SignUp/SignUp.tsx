@@ -4,6 +4,7 @@ import * as Common from '../../Common/Function/Function';
 import { CommonTextBox } from '../../Parts/CommonTextBox/CommonTextBox';
 import { PassTextBox } from '../../Parts/PassTextBox/PassTextBox';
 import { SubmitButton } from '../../Parts/SubmitButton/SubmitButton';
+import Header from '../Header/Header';
 
 export const SignUp = () => {
   const[firstName, setFirstName] = React.useState("");
@@ -18,6 +19,7 @@ export const SignUp = () => {
 
   return(
     <div className="sign-up">
+      <Header isLoggedIn={false} />
       {message}
       <CommonTextBox
         label='姓'
