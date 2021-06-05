@@ -4,6 +4,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using spring_app.Model.Login;
+using MySql.Data.MySqlClient;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace spring_app.Controllers.Login
 {
@@ -11,26 +15,100 @@ namespace spring_app.Controllers.Login
     [ApiController]
     public class LoginController : ControllerBase
     {
-        private Boolean isCorrectUser(String name, String password)
+
+        [HttpPost]
+        public Dictionary<string, string> AjaxLogin([FromBody] LoginEnt loginUser)
         {
-            String testName = "test";
-            String testPass = "password";
-            if(testName == name && testPass == password)
-            {
-                return true;
-            }
-            return false;
+            //Login.tsxから受け取った値を変数に格納する
+            string userName = loginUser.name;
+            string userPassword = loginUser.password;
+
+            String loginStatus = isCorrectUser(userName, userPassword);
+
+            // ログイン結果をDictionary型にして返す
+            var loginResult = new Dictionary<String, String>();
+            loginResult.Add("loginStatus", "loginStatus");
+            loginResult.Add("result", loginStatus);
+            return loginResult;
 
         }
 
-        [HttpGet("{name}/{pass}", Name = "Login")]
-        public String AjaxLogin(String name, String pass)
+
+        public String isCorrectUser(String userName, String userPassword)
         {
-            if (isCorrectUser(name, pass))
+            //DB接続情報
+            string Server = "localhost";
+            int Port = 3306;
+            string Database = "test_spring";
+            string dbId = "root";
+            string dbPassword = "reiko1222";
+
+            //mysqlに接続する為のコマンド
+            string ConnectionString = $"Server={Server}; Port={Port}; Database={Database}; Uid={dbId}; Pwd={dbPassword}";
+
+            //ログインするアカウントが存在するかどうか確かめるSQL文を発行
+            string SelectLoginData =
+                $"SELECT * FROM mst_user WHERE user_id = {userName} AND password = {userPassword}";
+
+            //ログイン結果を格納する変数を用意
+            string loginStatus = "";
+
+            try
             {
-                return "200 OK";
+                using (MySqlConnection con = new MySqlConnection(ConnectionString))
+                {
+                    using (MySqlCommand cmd = new MySqlCommand(SelectLoginData, con))
+                    {
+                        using (MySqlDataAdapter adapter = new MySqlDataAdapter(cmd))
+                        {
+                            DataTable dataTable = new DataTable();
+                            adapter.Fill(dataTable);
+                            int rowcount = dataTable.Rows.Count;
+
+                            if (rowcount == 1)
+                            {
+                                loginStatus = "1";
+                            }
+                            else
+                            {
+                                loginStatus = "0";
+                            }
+                        }
+                    }
+                }
             }
-            return "500 ERROR";
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            return loginStatus;
         }
+
+
+
+
+
+        //private Boolean isCorrectUser(String name, String password)
+        //{
+        //    String testName = "test";
+        //    String testPass = "password";
+        //    if(testName == name && testPass == password)
+        //    {
+        //        return true;
+        //    }
+        //    return false;
+
+        //}
+
+        //[HttpGet("{name}/{pass}", Name = "Login")]
+        //public String AjaxLogin(String name, String pass)
+        //{
+        //    if (isCorrectUser(name, pass))
+        //    {
+        //        return "200 OK";
+        //    }
+        //    return "500 ERROR";
+        //}
     }
 }

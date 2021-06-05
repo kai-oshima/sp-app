@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace spring_app.Model.Login
 {
-    public class LoginEnt : Controller
+    public class LoginEnt //: Controller
     {
         public String name { get; set; }
 
