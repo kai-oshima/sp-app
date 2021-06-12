@@ -44,13 +44,16 @@ export const Login = (props : Props) => {
         </div>
     );
 
-    async function tryLogin(event : any){
-        const a = "api/Login/" + userName + "/" + password;
-        const response = await fetch(a);
+    function tryLogin(event : any){
+        const url = "api/Login";
+        const jsonData = {userName, password};
+        Common.httpPost(url, jsonData, callPage);
+    }
+
+    function callPage(response: string) {
         console.log(response);
         Common.setCookie('login-status', '1');
         props.history.push({pathname: "/main"});
-        
     }
 
     function setPass(val : string, callBack : Function) {

@@ -53,6 +53,20 @@ export async function httpPost(url : string, jsonData : object, callBack : Funct
 }
 
 /* GET通信 */
+export async function httpGet(url : string, callBack : Function) {
+  //通信
+  const result =
+  await fetch(url)
+  .then(response => {
+    return response.json();
+  })
+  .catch(error => {
+    console.log(error);
+    return null;
+  });
+  //実行したい処理
+  callBack(result);
+}
 
 /* ログインチェック */
 export function isLoggedIn () {
