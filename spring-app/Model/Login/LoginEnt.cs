@@ -8,7 +8,7 @@ namespace spring_app.Model.Login
 {
     public class LoginEnt //: Controller
     {
-        public String name { get; set; }
+        public String userName { get; set; }
 
         public String password { get; set;}
     }

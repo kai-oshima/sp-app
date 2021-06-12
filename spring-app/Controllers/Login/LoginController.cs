@@ -20,15 +20,15 @@ namespace spring_app.Controllers.Login
         public Dictionary<string, string> AjaxLogin([FromBody] LoginEnt loginUser)
         {
             //Login.tsxから受け取った値を変数に格納する
-            string userName = loginUser.name;
+            string userName = loginUser.userName;
             string userPassword = loginUser.password;
 
             String loginStatus = isCorrectUser(userName, userPassword);
 
             // ログイン結果をDictionary型にして返す
             var loginResult = new Dictionary<String, String>();
-            loginResult.Add("loginStatus", "loginStatus");
-            loginResult.Add("result", loginStatus);
+            loginResult.Add("loginStatus", loginStatus);
+            //loginResult.Add("result", loginStatus);
             return loginResult;
 
         }
@@ -37,7 +37,7 @@ namespace spring_app.Controllers.Login
         public String isCorrectUser(String userName, String userPassword)
         {
             //DB接続情報
-            string Server = "localhost";
+            string Server = "127.0.0.1";
             int Port = 3306;
             string Database = "test_spring";
             string dbId = "root";
@@ -48,7 +48,7 @@ namespace spring_app.Controllers.Login
 
             //ログインするアカウントが存在するかどうか確かめるSQL文を発行
             string SelectLoginData =
-                $"SELECT * FROM mst_user WHERE user_id = {userName} AND password = {userPassword}";
+                $"SELECT * FROM mst_user WHERE user_id = '{userName}' AND password = '{userPassword}'";
 
             //ログイン結果を格納する変数を用意
             string loginStatus = "";
@@ -85,30 +85,5 @@ namespace spring_app.Controllers.Login
             return loginStatus;
         }
 
-
-
-
-
-        //private Boolean isCorrectUser(String name, String password)
-        //{
-        //    String testName = "test";
-        //    String testPass = "password";
-        //    if(testName == name && testPass == password)
-        //    {
-        //        return true;
-        //    }
-        //    return false;
-
-        //}
-
-        //[HttpGet("{name}/{pass}", Name = "Login")]
-        //public String AjaxLogin(String name, String pass)
-        //{
-        //    if (isCorrectUser(name, pass))
-        //    {
-        //        return "200 OK";
-        //    }
-        //    return "500 ERROR";
-        //}
     }
 }
